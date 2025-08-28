@@ -34,25 +34,6 @@ Projenin çalışabilmesi için Arduino IDE'ye aşağıdaki kütüphanelerin ekl
 
 Bu kütüphaneleri Arduino IDE'nin Kütüphane Yöneticisi'nden kolayca aratıp yükleyebilirsiniz.
 
-## Nasıl Kullanılır?
 
-1.  Yukarıdaki donanımları ve bağlantıları doğru bir şekilde yapın.
-2.  Gereken kütüphaneleri Arduino IDE'ye ekleyin.
-3.  Sağlanan kodu kopyalayıp Arduino IDE'ye yapıştırın.
-4.  Kodu derleyin ve Arduino kartınıza yükleyin.
-5.  Seri Monitörü açın (9600 baud hızında).
-6.  Bir RFID kartını MFRC522 okuyucusuna yaklaştırın.
-7.  Kartın ID'si okunduğunda, seri monitörde kartın üzerine yazılan tarih ve saat bilgisini göreceksiniz. Her yeni kart okutulduğunda, kart üzerindeki veri güncellenecektir.
 
-## Kod Açıklaması
 
-* `setup()` fonksiyonu içinde, Seri Port, I2C ve SPI haberleşmeleri başlatılır. `rtc.lostPower()` kontrolü ile eğer RTC modülü güç kaybetmişse, programın derlenme zamanını kullanarak saat ayarı yapılır.
-* `getFormattedDateTime()` fonksiyonu, DS3231'den okunan tarih ve saat bilgisini `DDMMYYHHmm` formatında (örneğin: `1501251359`) bir string olarak döndürür.
-* `loop()` fonksiyonu, sürekli olarak yeni bir RFID kartının yaklaştırılıp yaklaştırılmadığını kontrol eder.
-* Eğer yeni bir kart algılanırsa, `getFormattedDateTime()` fonksiyonundan alınan zaman stringi `dataToWrite` adlı bir byte dizisine kopyalanır.
-* Daha sonra `MIFARE_Write()` fonksiyonu kullanılarak RFID kartının ilgili bloğuna (bu örnekte `blok 1`) önce boş veri yazılıp temizlenir, ardından yeni zaman verisi yazılır.
-* Son olarak, kart pasif hale getirilir ve yeni bir okuma için kısa bir bekleme süresi verilir.
-
-## Lisans
-
-Bu proje MIT Lisansı ile lisanslanmıştır. Daha fazla bilgi için `LICENSE` dosyasına göz atabilirsiniz.
